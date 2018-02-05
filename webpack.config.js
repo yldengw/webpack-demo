@@ -1,4 +1,5 @@
 const path = require('path');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     // 入口文件的配置项
     entry: {
@@ -10,8 +11,17 @@ module.exports = {
         path : path.resolve(__dirname, 'dist'),
         filename: '[name].js'
     },
-    module: {},
-    plugins: [],
+    module: {
+        rules:[
+            {
+                test:/\.css$/,
+                use:['style-loader','css-loader']
+            }
+        ]
+    },
+    plugins: [
+        new UglifyJSPlugin()
+    ],
     devServer: {
         historyApiFallback: true,
         hot: false,
